@@ -1,0 +1,37 @@
+{
+  "captains": [
+    { "id": "c1", "name": "뱅", "position": "JGL" },
+    { "id": "c2", "name": "울프", "position": "JGL" },
+    { "id": "c3", "name": "갱맘", "position": "JGL" },
+    { "id": "c4", "name": "소우릎", "position": "JGL" },
+    { "id": "c5", "name": "큐베", "position": "JGL" }
+  ],
+  "players": [
+    { "id": 1, "name": "김뿡", "position": "TOP" },
+    { "id": 2, "name": "운타라", "position": "TOP" },
+    { "id": 3, "name": "룩삼", "position": "TOP" },
+    { "id": 4, "name": "한동숙", "position": "TOP" },
+    { "id": 5, "name": "얍얍", "position": "TOP" },
+    { "id": 6, "name": "랄로", "position": "MID" },
+    { "id": 7, "name": "피닉스박", "position": "MID" },
+    { "id": 8, "name": "트롤야", "position": "MID" },
+    { "id": 9, "name": "인섹", "position": "MID" },
+    { "id": 10, "name": "앰비션", "position": "MID" },
+    { "id": 11, "name": "괴물쥐", "position": "ADC" },
+    { "id": 12, "name": "따효니", "position": "ADC" },
+    { "id": 13, "name": "러너", "position": "ADC" },
+    { "id": 14, "name": "삼식", "position": "ADC" },
+    { "id": 15, "name": "명예훈장", "position": "ADC" },
+    { "id": 16, "name": "순당무", "position": "SUP" },
+    { "id": 17, "name": "던", "position": "SUP" },
+    { "id": 18, "name": "소풍왔니", "position": "SUP" },
+    { "id": 19, "name": "푸린", "position": "SUP" },
+    { "id": 20, "name": "인간젤리", "position": "SUP" }
+  ],
+  "positions": [
+    { "id": "TOP", "name": "탑", "order": 1 },
+    { "id": "MID", "name": "미드", "order": 2 },
+    { "id": "ADC", "name": "원딜", "order": 3 },
+    { "id": "SUP", "name": "서포터", "order": 4 }
+  ]
+}

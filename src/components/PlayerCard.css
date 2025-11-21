@@ -1,0 +1,52 @@
+.player-card {
+  background: linear-gradient(145deg, #1e1e30 0%, #252540 100%);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player-card:hover:not(.disabled) {
+  border-color: #00ff88;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+}
+
+.player-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.player-card.selected {
+  border-color: #00ff88;
+  background: linear-gradient(145deg, #1e3025 0%, #254035 100%);
+}
+
+.position-badge {
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #000;
+  min-width: 35px;
+  text-align: center;
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-name {
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.player-team {
+  color: #a0a0a0;
+  font-size: 0.75rem;
+}
