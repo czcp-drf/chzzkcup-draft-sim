@@ -1,0 +1,376 @@
+.mock-draft {
+  padding: 20px;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-draft .setup-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #1e1e30 0%, #252540 100%);
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.mock-draft .setup-container h2 {
+  color: #00ff88;
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+}
+
+.mock-draft .setup-container > p {
+  color: #888;
+  margin: 0 0 25px 0;
+  font-size: 0.9rem;
+}
+
+.mock-draft .setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mock-draft .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mock-draft .form-group label {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.captain-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.captain-select-btn {
+  padding: 12px 16px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #1a1a2e;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.captain-select-btn:hover {
+  border-color: #00ff88;
+  background: #1f1f3a;
+}
+
+.captain-select-btn.selected {
+  border-color: #00ff88;
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+}
+
+.mock-draft .captain-order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock-draft .captain-order-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  background: #1a1a2e;
+  border-radius: 8px;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+}
+
+.mock-draft .captain-order-item.is-user {
+  border-color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.mock-draft .order-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #333;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.mock-draft .captain-name {
+  flex: 1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-badge {
+  padding: 2px 6px;
+  background: #00ff88;
+  color: #000;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.mock-draft .order-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.mock-draft .order-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #252540;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.mock-draft .order-btn:hover:not(:disabled) {
+  background: #00ff88;
+  color: #000;
+  border-color: #00ff88;
+}
+
+.mock-draft .order-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mock-draft .draft-info {
+  background: #1a1a2e;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid #00ff88;
+}
+
+.mock-draft .draft-info h4 {
+  color: #00ff88;
+  margin: 0 0 5px 0;
+  font-size: 0.9rem;
+}
+
+.mock-draft .draft-info p {
+  color: #fff;
+  margin: 0 0 5px 0;
+  font-size: 0.85rem;
+}
+
+.mock-draft .draft-info small {
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.tier-warning {
+  padding: 12px;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.mock-draft .start-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.mock-draft .start-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+}
+
+.mock-draft .start-btn:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Drafting state */
+.mock-draft .simulation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.mock-draft .header-info h2 {
+  color: #00ff88;
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+.mock-draft .current-turn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.mock-draft .turn-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.your-turn-badge {
+  padding: 4px 8px;
+  background: #00ff88;
+  color: #000;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 8px;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+  to { box-shadow: 0 0 15px rgba(0, 255, 136, 0.8); }
+}
+
+.mock-draft .pick-counter {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.mock-draft .complete-banner {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.mock-draft .reset-btn {
+  padding: 10px 20px;
+  border: 1px solid #ff6b6b;
+  border-radius: 6px;
+  background: transparent;
+  color: #ff6b6b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.mock-draft .reset-btn:hover {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+.mock-draft .simulation-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.mock-draft .teams-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  align-content: start;
+}
+
+.mock-draft .player-panel {
+  background: linear-gradient(135deg, #1e1e30 0%, #252540 100%);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mock-draft .player-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.mock-draft .player-list-wrapper h4 {
+  color: #00ff88;
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+}
+
+.mock-draft .available-positions {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: rgba(0, 255, 136, 0.1);
+  border-radius: 4px;
+}
+
+.waiting-message {
+  color: #f9ca24;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: rgba(249, 202, 36, 0.1);
+  border-radius: 4px;
+  text-align: center;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@media (max-width: 1200px) {
+  .mock-draft .simulation-content {
+    grid-template-columns: 1fr;
+  }
+
+  .mock-draft .player-panel {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mock-draft {
+    padding: 10px;
+  }
+
+  .mock-draft .setup-container {
+    padding: 20px;
+  }
+
+  .captain-select-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
