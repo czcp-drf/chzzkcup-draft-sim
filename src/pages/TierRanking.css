@@ -262,6 +262,18 @@
   word-break: keep-all;
 }
 
+.tier-ranking .player-card .player-name-input {
+  width: 100%;
+  padding: 2px 4px;
+  border: 1px solid #00ff88;
+  border-radius: 3px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.7rem;
+  text-align: center;
+  outline: none;
+}
+
 /* Unranked Section */
 .unranked-section {
   margin-top: 20px;
