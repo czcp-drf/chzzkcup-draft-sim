@@ -215,7 +215,7 @@
 }
 
 /* Player Card */
-.player-card {
+.tier-ranking .player-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,20 +233,20 @@
   text-align: center;
 }
 
-.player-card:hover {
+.tier-ranking .player-card:hover {
   border-color: #00ff88;
   background: #1f1f3a;
 }
 
-.player-card:active {
+.tier-ranking .player-card:active {
   cursor: grabbing;
 }
 
-.player-card.dragging {
+.tier-ranking .player-card.dragging {
   opacity: 0.5;
 }
 
-.player-card .position-badge {
+.tier-ranking .player-card .position-badge {
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 0.6rem;
@@ -254,7 +254,7 @@
   color: #000;
 }
 
-.player-card .player-name {
+.tier-ranking .player-card .player-name {
   color: #fff;
   font-size: 0.7rem;
   font-weight: 500;
@@ -344,19 +344,23 @@
     font-size: 1rem;
   }
 
-  .player-card {
-    width: 60px;
-    height: 60px;
-    padding: 6px;
-  }
+  @media (max-width: 768px) {
+    /* ... 기존 코드 ... */
 
-  .player-card .position-badge {
-    font-size: 0.55rem;
-    padding: 2px 4px;
-  }
+    .tier-ranking .player-card {
+      width: 60px;
+      height: 60px;
+      padding: 6px;
+    }
 
-  .player-card .player-name {
-    font-size: 0.65rem;
+    .tier-ranking .player-card .position-badge {
+      font-size: 0.55rem;
+      padding: 2px 4px;
+    }
+
+    .tier-ranking .player-card .player-name {
+      font-size: 0.65rem;
+    }
   }
 }
 

@@ -18,7 +18,7 @@
   margin-bottom: 0.5rem;
 }
 
-.setup-container > p {
+.setup-container>p {
   color: #888;
   margin-bottom: 2rem;
 }
@@ -197,9 +197,45 @@
   animation: pulse 1.5s infinite;
 }
 
+.draft-type-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.draft-type-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1a1a2e;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.draft-type-btn:hover {
+  background: #2a2a4e;
+  border-color: #444;
+}
+
+.draft-type-btn.active {
+  background: #00ff88;
+  color: #000;
+  border-color: #00ff88;
+  font-weight: bold;
+}
+
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .position-indicator {

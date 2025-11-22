@@ -13,6 +13,7 @@ function SimulationMode() {
   const [teams, setTeams] = useState([]);
   const [currentPickIndex, setCurrentPickIndex] = useState(0);
   const [draftOrder, setDraftOrder] = useState([]);
+  const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
 
   // Move captain up in order
   const moveCaptainUp = (index) => {
@@ -41,17 +42,24 @@ function SimulationMode() {
     }));
     setTeams(initialTeams);
 
-    // Create snake draft order for 4 rounds (4 positions per team)
-    // Round 1: 0,1,2,3,4 / Round 2: 4,3,2,1,0 / Round 3: 0,1,2,3,4 / Round 4: 4,3,2,1,0
+    // Create draft order based on type
     const order = [];
     const numTeams = captainOrder.length;
     for (let round = 0; round < 4; round++) {
-      if (round % 2 === 0) {
-        for (let team = 0; team < numTeams; team++) {
-          order.push({ teamIndex: team, round });
+      if (draftType === 'snake') {
+        // Snake draft: 1→2→3→4→5, 5→4→3→2→1, ...
+        if (round % 2 === 0) {
+          for (let team = 0; team < numTeams; team++) {
+            order.push({ teamIndex: team, round });
+          }
+        } else {
+          for (let team = numTeams - 1; team >= 0; team--) {
+            order.push({ teamIndex: team, round });
+          }
         }
       } else {
-        for (let team = numTeams - 1; team >= 0; team--) {
+        // Linear draft: 1→2→3→4→5, 1→2→3→4→5, ...
+        for (let team = 0; team < numTeams; team++) {
           order.push({ teamIndex: team, round });
         }
       }
@@ -124,6 +132,23 @@ function SimulationMode() {
 
           <div className="setup-form">
             <div className="form-group">
+              <label>드래프트 방식</label>
+              <div className="draft-type-buttons">
+                <button
+                  className={`draft-type-btn ${draftType === 'snake' ? 'active' : ''}`}
+                  onClick={() => setDraftType('snake')}
+                >
+                  스네이크
+                </button>
+                <button
+                  className={`draft-type-btn ${draftType === 'linear' ? 'active' : ''}`}
+                  onClick={() => setDraftType('linear')}
+                >
+                  정방향
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
               <label>드래프트 순서 설정</label>
               <div className="captain-order-list">
                 {captainOrder.map((captain, index) => (
@@ -153,8 +178,12 @@ function SimulationMode() {
 
             <div className="draft-info">
               <h4>드래프트 방식</h4>
-              <p>스네이크 드래프트 (4라운드)</p>
-              <small>1R: 1→2→3→4→5 / 2R: 5→4→3→2→1 / 3R: 1→2→3→4→5 / 4R: 5→4→3→2→1</small>
+              <p>{draftType === 'snake' ? '스네이크 드래프트' : '정방향 드래프트'} (4라운드)</p>
+              <small>
+                {draftType === 'snake'
+                  ? '1R: 1→2→3→4→5 / 2R: 5→4→3→2→1 / 3R: 1→2→3→4→5 / 4R: 5→4→3→2→1'
+                  : '1R: 1→2→3→4→5 / 2R: 1→2→3→4→5 / 3R: 1→2→3→4→5 / 4R: 1→2→3→4→5'}
+              </small>
             </div>
 
             <button className="start-btn" onClick={initializeDraft}>

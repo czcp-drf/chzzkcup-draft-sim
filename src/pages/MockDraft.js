@@ -18,6 +18,7 @@ function MockDraft() {
   const [tierPlayers, setTierPlayers] = useState({});
   const [unrankedPlayers, setUnrankedPlayers] = useState([]);
   const [userTeamIndex, setUserTeamIndex] = useState(0);
+  const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
 
   // Load tier list from localStorage
   useEffect(() => {
@@ -72,15 +73,24 @@ function MockDraft() {
     setTeams(initialTeams);
 
     // Create snake draft order
+    // Create draft order based on type
     const order = [];
     const numTeams = captainOrder.length;
     for (let round = 0; round < 4; round++) {
-      if (round % 2 === 0) {
-        for (let team = 0; team < numTeams; team++) {
-          order.push({ teamIndex: team, round });
+      if (draftType === 'snake') {
+        // Snake draft: 1→2→3→4→5, 5→4→3→2→1, ...
+        if (round % 2 === 0) {
+          for (let team = 0; team < numTeams; team++) {
+            order.push({ teamIndex: team, round });
+          }
+        } else {
+          for (let team = numTeams - 1; team >= 0; team--) {
+            order.push({ teamIndex: team, round });
+          }
         }
       } else {
-        for (let team = numTeams - 1; team >= 0; team--) {
+        // Linear draft: 1→2→3→4→5, 1→2→3→4→5, ...
+        for (let team = 0; team < numTeams; team++) {
           order.push({ teamIndex: team, round });
         }
       }
@@ -127,8 +137,8 @@ function MockDraft() {
       const available = playerIds.filter(playerId => {
         const player = players.find(p => p.id === playerId);
         return player &&
-               !draftedIds.includes(player.id) &&
-               availablePos.includes(player.position);
+          !draftedIds.includes(player.id) &&
+          availablePos.includes(player.position);
       });
 
       if (available.length === 0) return null;
@@ -229,6 +239,23 @@ function MockDraft() {
 
           <div className="setup-form">
             <div className="form-group">
+              <label>드래프트 방식</label>
+              <div className="draft-type-buttons">
+                <button
+                  className={`draft-type-btn ${draftType === 'snake' ? 'active' : ''}`}
+                  onClick={() => setDraftType('snake')}
+                >
+                  스네이크
+                </button>
+                <button
+                  className={`draft-type-btn ${draftType === 'linear' ? 'active' : ''}`}
+                  onClick={() => setDraftType('linear')}
+                >
+                  정방향
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
               <label>내가 플레이할 팀장 선택</label>
               <div className="captain-select-grid">
                 {captains.map(captain => (
@@ -279,8 +306,12 @@ function MockDraft() {
 
             <div className="draft-info">
               <h4>드래프트 방식</h4>
-              <p>스네이크 드래프트 (4라운드)</p>
-              <small>1R: 1→2→3→4→5 / 2R: 5→4→3→2→1 / 3R: 1→2→3→4→5 / 4R: 5→4→3→2→1</small>
+              <p>{draftType === 'snake' ? '스네이크 드래프트' : '정방향 드래프트'} (4라운드)</p>
+              <small>
+                {draftType === 'snake'
+                  ? '1R: 1→2→3→4→5 / 2R: 5→4→3→2→1 / 3R: 1→2→3→4→5 / 4R: 5→4→3→2→1'
+                  : '1R: 1→2→3→4→5 / 2R: 1→2→3→4→5 / 3R: 1→2→3→4→5 / 4R: 1→2→3→4→5'}
+              </small>
             </div>
 
             {tiers.length === 0 || Object.values(tierPlayers).every(arr => arr.length === 0) ? (
