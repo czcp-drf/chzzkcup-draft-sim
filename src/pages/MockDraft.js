@@ -19,6 +19,7 @@ function MockDraft() {
   const [unrankedPlayers, setUnrankedPlayers] = useState([]);
   const [userTeamIndex, setUserTeamIndex] = useState(0);
   const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
+  const [customNames, setCustomNames] = useState({});
 
   // Load tier list from localStorage
   useEffect(() => {
@@ -35,6 +36,14 @@ function MockDraft() {
       setUnrankedPlayers(players.map(p => p.id));
     }
   }, [players]);
+
+  // Load custom names from localStorage
+  useEffect(() => {
+    const savedNames = localStorage.getItem('customPlayerNames');
+    if (savedNames) {
+      setCustomNames(JSON.parse(savedNames));
+    }
+  }, []);
 
   // Move captain up in order
   const moveCaptainUp = (index) => {
@@ -375,6 +384,7 @@ function MockDraft() {
               teamName={`${team.captain.name} 팀${index === userTeamIndex ? ' (YOU)' : ''}`}
               teamColor={TEAM_COLORS[index]}
               isActive={index === currentTeamIdx}
+              customNames={customNames}
             />
           ))}
         </div>
@@ -398,6 +408,7 @@ function MockDraft() {
               draftedPlayers={getAllDraftedPlayers()}
               positions={positions}
               disabled={!isUserTurn()}
+              customNames={customNames}
             />
           </div>
         </div>

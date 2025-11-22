@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PlayerList from '../components/PlayerList';
 import DraftBoard from '../components/DraftBoard';
 import playersData from '../data/players.json';
@@ -14,6 +14,15 @@ function SimulationMode() {
   const [currentPickIndex, setCurrentPickIndex] = useState(0);
   const [draftOrder, setDraftOrder] = useState([]);
   const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
+  const [customNames, setCustomNames] = useState({});
+
+  // Load custom names from localStorage
+  useEffect(() => {
+    const savedNames = localStorage.getItem('customPlayerNames');
+    if (savedNames) {
+      setCustomNames(JSON.parse(savedNames));
+    }
+  }, []);
 
   // Move captain up in order
   const moveCaptainUp = (index) => {
@@ -234,6 +243,7 @@ function SimulationMode() {
               teamName={`${team.captain.name} 팀`}
               teamColor={TEAM_COLORS[index]}
               isActive={index === currentTeamIdx}
+              customNames={customNames}
             />
           ))}
         </div>
@@ -251,6 +261,7 @@ function SimulationMode() {
               onSelectPlayer={handleSelectPlayer}
               draftedPlayers={getAllDraftedPlayers()}
               positions={positions}
+              customNames={customNames}
             />
           </div>
         </div>

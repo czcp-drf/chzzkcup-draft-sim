@@ -27,6 +27,9 @@ function TierRanking() {
   const [draggedPlayer, setDraggedPlayer] = useState(null);
   const [editingTier, setEditingTier] = useState(null);
   const [editingName, setEditingName] = useState('');
+  const [editingPlayer, setEditingPlayer] = useState(null);
+  const [editingPlayerName, setEditingPlayerName] = useState('');
+  const [customNames, setCustomNames] = useState({});
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -58,6 +61,21 @@ function TierRanking() {
       }));
     }
   }, [tiers, tierPlayers, unrankedPlayers]);
+
+  // Load custom names from localStorage
+  useEffect(() => {
+    const savedNames = localStorage.getItem('customPlayerNames');
+    if (savedNames) {
+      setCustomNames(JSON.parse(savedNames));
+    }
+  }, []);
+
+  // Save custom names to localStorage
+  useEffect(() => {
+    if (Object.keys(customNames).length > 0) {
+      localStorage.setItem('customPlayerNames', JSON.stringify(customNames));
+    }
+  }, [customNames]);
 
   // Drag handlers
   const handleDragStart = (e, playerId) => {
@@ -113,6 +131,40 @@ function TierRanking() {
 
     setTierPlayers(newTierPlayers);
     setDraggedPlayer(null);
+  };
+
+  // Player name editing
+  const handlePlayerDoubleClick = (playerId, currentName) => {
+    setEditingPlayer(playerId);
+    setEditingPlayerName(customNames[playerId] || currentName);
+  };
+
+  const handlePlayerNameChange = (e) => {
+    setEditingPlayerName(e.target.value);
+  };
+
+  const handlePlayerNameSave = (playerId) => {
+    if (editingPlayerName.trim()) {
+      setCustomNames({
+        ...customNames,
+        [playerId]: editingPlayerName.trim()
+      });
+    }
+    setEditingPlayer(null);
+    setEditingPlayerName('');
+  };
+
+  const handlePlayerNameKeyDown = (e, playerId) => {
+    if (e.key === 'Enter') {
+      handlePlayerNameSave(playerId);
+    } else if (e.key === 'Escape') {
+      setEditingPlayer(null);
+      setEditingPlayerName('');
+    }
+  };
+
+  const getDisplayName = (player) => {
+    return customNames[player.id] || player.name;
   };
 
   // Tier management
@@ -184,7 +236,6 @@ function TierRanking() {
     const player = getPlayerById(playerId);
     if (!player) return null;
 
-    // Check if filtered out
     if (filterPosition !== 'ALL' && player.position !== filterPosition) {
       return null;
     }
@@ -203,7 +254,26 @@ function TierRanking() {
         >
           {player.position}
         </span>
-        <span className="player-name">{player.name}</span>
+        {editingPlayer === player.id ? (
+          <input
+            type="text"
+            className="player-name-input"
+            value={editingPlayerName}
+            onChange={handlePlayerNameChange}
+            onKeyDown={(e) => handlePlayerNameKeyDown(e, player.id)}
+            onBlur={() => handlePlayerNameSave(player.id)}
+            autoFocus
+            onClick={(e) => e.stopPropagation()}
+          />
+        ) : (
+          <span
+            className="player-name"
+            onDoubleClick={() => handlePlayerDoubleClick(player.id, player.name)}
+            title="더블클릭하여 이름 수정"
+          >
+            {getDisplayName(player)}
+          </span>
+        )}
       </div>
     );
   };
@@ -212,7 +282,8 @@ function TierRanking() {
     <div className="tier-ranking">
       <div className="tier-container">
         <h2>플레이어 티어 리스트</h2>
-        <p>플레이어들을 티어에 드래그하여 배치하세요. 같은 티어 내에서는 동등하게 취급됩니다.</p>
+        <p>플레이어들을 티어에 드래그하여 배치하세요. 같은 티어 내에서는 동등하게 취급됩니다. </p>
+        <p>플레이어 카드의 이름 부분을 더블클릭하여 이름을 변경할 수도 있습니다.</p>
 
         <div className="tier-controls">
           <div className="filter-buttons">

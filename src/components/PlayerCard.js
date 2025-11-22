@@ -1,31 +1,33 @@
 import './PlayerCard.css';
 
-function PlayerCard({ player, onSelect, disabled, selected }) {
-  const positionColors = {
-    TOP: '#ff6b6b',
-    JGL: '#4ecdc4',
-    MID: '#45b7d1',
-    ADC: '#f9ca24',
-    SUP: '#a29bfe'
-  };
+  function PlayerCard({ player, onSelect, disabled, selected, customNames = {} }) {
+    const positionColors = {
+      TOP: '#ff6b6b',
+      JGL: '#4ecdc4',
+      MID: '#45b7d1',
+      ADC: '#f9ca24',
+      SUP: '#a29bfe'
+    };
 
-  return (
-    <div
-      className={`player-card ${disabled ? 'disabled' : ''} ${selected ? 'selected' : ''}`}
-      onClick={() => !disabled && onSelect && onSelect(player)}
-    >
+    const displayName = customNames[player.id] || player.name;
+
+    return (
       <div
-        className="position-badge"
-        style={{ backgroundColor: positionColors[player.position] }}
+        className={`player-card ${disabled ? 'disabled' : ''} ${selected ? 'selected' : ''}`}
+        onClick={() => !disabled && onSelect && onSelect(player)}
       >
-        {player.position}
+        <div
+          className="position-badge"
+          style={{ backgroundColor: positionColors[player.position] }}
+        >
+          {player.position}
+        </div>
+        <div className="player-info">
+          <h4 className="player-name">{displayName}</h4>
+          <p className="player-team">{player.team}</p>
+        </div>
       </div>
-      <div className="player-info">
-        <h4 className="player-name">{player.name}</h4>
-        <p className="player-team">{player.team}</p>
-      </div>
-    </div>
-  );
-}
+    );
+  }
 
-export default PlayerCard;
+  export default PlayerCard;
