@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PlayerCard from './PlayerCard';
 import './PlayerList.css';
 
-function PlayerList({ players, onSelectPlayer, draftedPlayers = [], positions }) {
+function PlayerList({ players, onSelectPlayer, draftedPlayers = [], positions, disabled = false }) {
   const [filterPosition, setFilterPosition] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -13,6 +13,7 @@ function PlayerList({ players, onSelectPlayer, draftedPlayers = [], positions })
   });
 
   const isDrafted = (playerId) => draftedPlayers.some(p => p && p.id === playerId);
+  const isDisabled = (playerId) => disabled || isDrafted(playerId);
 
   return (
     <div className="player-list">
@@ -50,7 +51,7 @@ function PlayerList({ players, onSelectPlayer, draftedPlayers = [], positions })
             key={player.id}
             player={player}
             onSelect={onSelectPlayer}
-            disabled={isDrafted(player.id)}
+            disabled={isDisabled(player.id)}
           />
         ))}
       </div>
