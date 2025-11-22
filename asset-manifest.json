@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/chzzkcup-draft-sim/static/css/main.f18aa1ed.css",
+    "main.css": "/chzzkcup-draft-sim/static/css/main.2e323caf.css",
     "main.js": "/chzzkcup-draft-sim/static/js/main.fdc805ff.js",
     "static/js/453.1853bc76.chunk.js": "/chzzkcup-draft-sim/static/js/453.1853bc76.chunk.js",
     "index.html": "/chzzkcup-draft-sim/index.html",
-    "main.f18aa1ed.css.map": "/chzzkcup-draft-sim/static/css/main.f18aa1ed.css.map",
+    "main.2e323caf.css.map": "/chzzkcup-draft-sim/static/css/main.2e323caf.css.map",
     "main.fdc805ff.js.map": "/chzzkcup-draft-sim/static/js/main.fdc805ff.js.map",
     "453.1853bc76.chunk.js.map": "/chzzkcup-draft-sim/static/js/453.1853bc76.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f18aa1ed.css",
+    "static/css/main.2e323caf.css",
     "static/js/main.fdc805ff.js"
   ]
 }
