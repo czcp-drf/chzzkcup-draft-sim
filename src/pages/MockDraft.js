@@ -20,6 +20,7 @@ function MockDraft() {
   const [userTeamIndex, setUserTeamIndex] = useState(0);
   const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
   const [customNames, setCustomNames] = useState({});
+  const [draggedCaptain, setDraggedCaptain] = useState(null);
 
   // Load tier list from localStorage
   useEffect(() => {
@@ -235,6 +236,33 @@ function MockDraft() {
     setSelectedCaptain(null);
   };
 
+  // Drag handlers for captain order
+  const handleCaptainDragStart = (e, index) => {
+    setDraggedCaptain(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleCaptainDragEnd = () => {
+    setDraggedCaptain(null);
+  };
+
+  const handleCaptainDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleCaptainDrop = (e, targetIndex) => {
+    e.preventDefault();
+    if (draggedCaptain === null || draggedCaptain === targetIndex) return;
+
+    const newOrder = [...captainOrder];
+    const [draggedItem] = newOrder.splice(draggedCaptain, 1);
+    newOrder.splice(targetIndex, 0, draggedItem);
+
+    setCaptainOrder(newOrder);
+    setDraggedCaptain(null);
+  };
+
   const isUserTurn = () => {
     return gameState === 'drafting' && getCurrentTeamIndex() === userTeamIndex;
   };
@@ -285,8 +313,14 @@ function MockDraft() {
                 {captainOrder.map((captain, index) => (
                   <div
                     key={captain.id}
-                    className={`captain-order-item ${captain.id === selectedCaptain?.id ? 'is-user' : ''}`}
+                    className={`captain-order-item ${captain.id === selectedCaptain?.id ? 'is-user' : ''} ${draggedCaptain === index ? 'dragging' : ''}`}
+                    draggable
+                    onDragStart={(e) => handleCaptainDragStart(e, index)}
+                    onDragEnd={handleCaptainDragEnd}
+                    onDragOver={handleCaptainDragOver}
+                    onDrop={(e) => handleCaptainDrop(e, index)}
                   >
+                    <div className="drag-handle">⋮⋮</div>
                     <span className="order-number">{index + 1}</span>
                     <span className="captain-name">
                       {captain.name}
@@ -414,6 +448,7 @@ function MockDraft() {
         </div>
       </div>
     </div>
+
   );
 }
 

@@ -15,6 +15,7 @@ function SimulationMode() {
   const [draftOrder, setDraftOrder] = useState([]);
   const [draftType, setDraftType] = useState('snake'); // 'snake' or 'linear'
   const [customNames, setCustomNames] = useState({});
+  const [draggedCaptain, setDraggedCaptain] = useState(null);
 
   // Load custom names from localStorage
   useEffect(() => {
@@ -114,6 +115,33 @@ function SimulationMode() {
     setDraftOrder([]);
   };
 
+  // Drag handlers for captain order
+  const handleCaptainDragStart = (e, index) => {
+    setDraggedCaptain(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleCaptainDragEnd = () => {
+    setDraggedCaptain(null);
+  };
+
+  const handleCaptainDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleCaptainDrop = (e, targetIndex) => {
+    e.preventDefault();
+    if (draggedCaptain === null || draggedCaptain === targetIndex) return;
+
+    const newOrder = [...captainOrder];
+    const [draggedItem] = newOrder.splice(draggedCaptain, 1);
+    newOrder.splice(targetIndex, 0, draggedItem);
+
+    setCaptainOrder(newOrder);
+    setDraggedCaptain(null);
+  };
+
   const getAllDraftedPlayers = () => {
     return teams.flatMap(team =>
       [team.TOP, team.MID, team.ADC, team.SUP].filter(p => p !== null)
@@ -161,7 +189,16 @@ function SimulationMode() {
               <label>드래프트 순서 설정</label>
               <div className="captain-order-list">
                 {captainOrder.map((captain, index) => (
-                  <div key={captain.id} className="captain-order-item">
+                  <div
+                    key={captain.id}
+                    className={`captain-order-item ${draggedCaptain === index ? 'dragging' : ''}`}
+                    draggable
+                    onDragStart={(e) => handleCaptainDragStart(e, index)}
+                    onDragEnd={handleCaptainDragEnd}
+                    onDragOver={handleCaptainDragOver}
+                    onDrop={(e) => handleCaptainDrop(e, index)}
+                  >
+                    <div className="drag-handle">⋮⋮</div>
                     <span className="order-number">{index + 1}</span>
                     <span className="captain-name">{captain.name}</span>
                     <div className="order-controls">
